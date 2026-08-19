@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block titulo %}{{ producto.nombre }} — Tienda Online{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card detail-card shadow-sm">
+                <div class="row g-0">
+                    <div class="col-md-5">
+                        <img src="{{ url_for('static', filename='uploads/' + (producto.imagen or 'default.jpg')) }}"
+                             class="detail-image" alt="Imagen de {{ producto.nombre }}">
+                    </div>
+                    <div class="col-md-7">
+                <div class="card-body">
+                    <span class="badge product-type mb-2">{{ producto.tipo }}</span>
+                    <h1 class="card-title mb-3">{{ producto.nombre }}</h1>
+                    <p class="text-muted"><strong>Código:</strong> {{ producto.codigo }}</p>
+                    <hr>
+                    
+                    <p class="price-tag fs-3">
+                        ${{ "%.2f"|format(producto.precio_final()) }}
+                    </p>
+
+                    <p class="card-text"><strong>Stock disponible:</strong> {{ producto.stock }} unidades</p>
+
+                    <!-- Atributos específicos según el tipo de producto -->
+                    {% if producto.tipo == 'fisico' %}
+                        <p class="card-text"><strong>Peso:</strong> {{ producto.peso_kg }} kg</p>
+                        <p class="card-text"><strong>Costo de envío por kg:</strong> ${{ "%.2f"|format(producto.costo_envio_por_kg) }}</p>
+                    {% elif producto.tipo == 'digital' %}
+                        <p class="card-text"><strong>Licencia:</strong> {{ producto.licencia }}</p>
+                    {% elif producto.tipo == 'perecible' %}
+                        <p class="card-text"><strong>Días para vencer:</strong> {{ producto.dias_para_vencer }} días</p>
+                    {% endif %}
+
+                    <hr class="my-4">
+
+                    <!-- Opciones de Administración (Solo Admin) -->
+                    {% if session.get('usuario_rol') == 'admin' %}
+                        <div class="d-flex gap-2 mb-3">
+                            <a href="{{ url_for('editar_producto', producto_id=producto.id) }}"
+                               class="btn btn-outline-primary">
+                                ✏️ Editar
+                            </a>
+                            <form action="{{ url_for('eliminar_producto', producto_id=producto.id) }}"
+                                  method="POST"
+                                  onsubmit="return confirm('¿Seguro que quieres desactivar este producto?');">
+                                <button type="submit" class="btn btn-outline-danger">
+                                    🗑️ Desactivar
+                                </button>
+                            </form>
+                        </div>
+                    {% endif %}
+
+                    <!-- Opciones de Cliente (Solo Cliente) -->
+                    {% if session.get('usuario_rol') == 'cliente' %}
+                        <form action="{{ url_for('agregar_carrito', producto_id=producto.id) }}" method="POST" class="mb-3">
+                            <button type="submit" class="btn btn-accent btn-lg w-100">🛍️ Agregar al carrito</button>
+                        </form>
+                    {% endif %}
+
+                    <div class="mt-4">
+                        <a href="{{ url_for('inicio') }}" class="btn btn-secondary">← Volver al catálogo</a>
+                    </div>
+                </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

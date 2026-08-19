@@ -1,0 +1,125 @@
+:root {
+    --ink: #18212b;
+    --muted: #66717d;
+    --paper: #f7f5ef;
+    --panel: #ffffff;
+    --line: #e4e1d8;
+    --accent: #e36b45;
+    --accent-dark: #b8492c;
+    --mint: #dcefe8;
+}
+
+body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "DM Sans", sans-serif;
+}
+
+h1, h2, h3, h4, h5, .navbar-brand {
+    font-family: "Space Grotesk", sans-serif;
+}
+
+.brand-nav {
+    background: var(--ink);
+    box-shadow: 0 3px 0 rgba(24, 33, 43, .08);
+}
+
+.brand-mark {
+    display: inline-grid;
+    width: 1.8rem;
+    height: 1.8rem;
+    place-items: center;
+    margin-right: .35rem;
+    border-radius: 50%;
+    background: var(--accent);
+    color: white;
+}
+
+.eyebrow {
+    color: var(--accent-dark);
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+
+.product-count {
+    color: var(--muted);
+    font-size: .9rem;
+}
+
+.product-card, .detail-card, .card {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--panel);
+}
+
+.product-card {
+    overflow: hidden;
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(24, 33, 43, .1);
+}
+
+.product-image {
+    height: 210px;
+    object-fit: cover;
+    background: var(--mint);
+}
+
+.detail-image {
+    width: 100%;
+    height: 100%;
+    min-height: 390px;
+    object-fit: cover;
+    border-radius: 8px 0 0 8px;
+}
+
+.product-type {
+    background: var(--mint);
+    color: #226151;
+    font-size: .7rem;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+}
+
+.price-tag {
+    color: var(--accent-dark);
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.btn-accent {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: white;
+}
+
+.btn-accent:hover, .btn-accent:focus {
+    border-color: var(--accent-dark);
+    background: var(--accent-dark);
+    color: white;
+}
+
+.site-footer {
+    margin-top: 3rem;
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: .85rem;
+}
+
+@media (max-width: 767.98px) {
+    .detail-image {
+        min-height: 250px;
+        max-height: 300px;
+        border-radius: 8px 8px 0 0;
+    }
+
+    .display-6 {
+        font-size: 2rem;
+    }
+}
